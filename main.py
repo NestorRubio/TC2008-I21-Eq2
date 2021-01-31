@@ -1,69 +1,28 @@
-import threading
-
-#creacion de los semaforos
-MG = threading.Semaphore(1)
-MH = threading.Semaphore(1)
-MP = threading.Semaphore(1)
-DMG = threading.Semaphore()
-DMH = threading.Semaphore()
-DMP = threading.Semaphore()
-OMG = threading.Semaphore(0)
-OMH = threading.Semaphore(0)
-OMP = threading.Semaphore(0)
-
-def despachador():
-    while True:
-        DMG.release()
-        print(DMG)
-        MG.release()
-        print(MG)
-        #COLOCA PEDIDO
-        MG.acquire()
-        print(MG)
-        OMG.acquire()
-        print(OMG)
-    
-
-
-def cocinero():
-    while True:
-        DMH.release()
-        MH.release()
-        #coloca hamburguesas
-        MH.acquire()
-        OMH.acquire()
-
-
-
-def empacador():
-    while True:
-        DMP.release()
-        OMH.release()
-        OMG.release()
-        MP.release()
-        #Surte pedido
-        MP.acquire()
-        MH.release()
-        #coloca hamburguesa
-        MH.acquire()
-        MP.release()
-        #coloca hamburguesa
-        MG.acquire()
-        DMG.acquire() 
-        DMH.acquire()
-        OMP.acquire()
-
-def cajero():
-    while True:
-        OMP.release()
-        MP.release()
-        #coloca hamburguesa
-        MP.release()
-        DMP.release()
+def leerOpcionMenu():
+    print('''Selecciona la opción del problema que te gustaría correr: 
+                1. Problema 7: productor-consumidor en buffer de tamaño 2
+                2. Problema 8: puesto de hamburguesas
+                3. Poblema extra 
+                0. Salir ''')
+    opcion = int(input("Qué desea hacer?"))
+    return opcion
 
 def main():
+    opcion=leerOpcionMenu()
+    while opcion !=0:
+        if opcion == 1: 
+            #correr problema 1
+            print("problema 1")
+        elif opcion == 2:
+            #correr programa 2
+            print ("problema 2")
+        elif opcion==3:
+            #correr programa 3
+            print ("problema 3")
+        else: 
+            print("Esta opción no es válida, selecciona una opción correcta")
 
-    hilo1.threading.Thread(target=despachador)
-    hilo2.threading.Thread(target=cocinero)
-    hilo3.threading.Thread(target=empacador)
-    hilo4.threading.Thread(target=cajero)
+    print("Termina Programa")
+
+
+main()
