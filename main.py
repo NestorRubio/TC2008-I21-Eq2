@@ -1,27 +1,37 @@
+import os
+
+
 def leerOpcionMenu():
     print('''Selecciona la opción del problema que te gustaría correr: 
                 1. Problema 7: productor-consumidor en buffer de tamaño 2
                 2. Problema 8: puesto de hamburguesas
-                3. Poblema extra 
+                3. Poblema extra: tienda en tiempos de COVID 
                 0. Salir ''')
-    opcion = int(input("Qué desea hacer?"))
+    opcion = int(input("Qué desea hacer? "))
     return opcion
 
-def main():
-    opcion=leerOpcionMenu()
-    while opcion !=0:
-        if opcion == 1: 
-            #correr problema 1
-            print("problema 1")
-        elif opcion == 2:
-            #correr programa 2
-            print ("problema 2")
-        elif opcion==3:
-            #correr programa 3
-            print ("problema 3")
-        else: 
-            print("Esta opción no es válida, selecciona una opción correcta")
 
+def main():
+    
+    opcion = leerOpcionMenu()
+    while opcion != 0:
+      if opcion == 1:
+          print()
+          os.system("python productorconsumidor.py")
+          print()
+      elif opcion == 2:
+          print()
+          os.system("python hamburguesas.py")
+          print()
+      elif opcion == 3:
+          print()
+          os.system("python tienda.py")
+          print()
+      else:
+          print("Esta opción no es válida, selecciona una opción correcta")
+      opcion = leerOpcionMenu()
+
+    print()
     print("Termina Programa")
 
 

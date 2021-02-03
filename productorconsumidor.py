@@ -1,39 +1,42 @@
-import threading 
+import threading
+import time
+import sys
 
-p = threading.Semaphore(2) # proceso que falta por producir 
+p = threading.Semaphore(2) # procesos que falta por producir
 c =  threading.Semaphore(0) # procesos disponibles para que consumidor
 bff = list()
 
 def productor():
     while(True):
-        print ("Valor del semaforo p: ", p._value)
-        print ("Valor del semaforo c: ", c._value)
         dato = "a"
         p.acquire() # P(SP)
-        print("Producto enviado al buffer")
+        print("Generando el producto número:", len(bff)+1)
         bff.append(dato)
         c.release() #v(SC)
-        print ("Valor del semaforo p: ", p._value)
-        print ("Valor del semaforo c: ", c._value)
+        time.sleep(0.5)
 
 def consumidor():
     while(True):
         c.acquire() #V(SC)
         c.acquire() #V(SC)
-        print("Dos datos tomados por el consumidor")
+        print("Consumidor tomando los dos datos")
         bff.pop()
         bff.pop()
-        p.release() #V(SP)
-        p.release() #V(SP)
-        print ("Valor del semaforo p: ", p._value)
-        print ("Valor del semaforo c: ", c._value)
+        print("Productos tomados: ", len(bff)+2)
+        print("Esperando a que se genere otro producto")
+        p.release() #V(VP)
+        p.release() #V(VP)
+        time.sleep(0.5)
 
 def main():
-    hilo1=threading.Thread(target=productor)
-    hilo2=threading.Thread(target=consumidor)
-    hilo1.start()
-    hilo2.start()
 
+    t1 = threading.Thread(target=productor, daemon=True)
+    t1.start()
+    time.sleep(3)
 
+    t2 = threading.Thread(target=consumidor, daemon=True)
+    t2.start()
+    time.sleep(3)
 
+    sys.exit()
 main()
