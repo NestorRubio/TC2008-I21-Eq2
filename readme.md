@@ -20,3 +20,5 @@ El repositorio cuenta con cuatro archivos .py, el denominado como **main.py** es
 
 **Nota:** La duracion de ejecucion de los codigos se modifica cambiando los
       valores de "time.sleep(x)"
+
+## [Video explicativo en youtube](https://youtu.be/JWTiDxld6bI "enlace al video de YouTube")
